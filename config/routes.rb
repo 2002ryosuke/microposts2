@@ -8,8 +8,15 @@ Rails.application.routes.draw do
 
   
   get 'signup', to: 'users#new'
-  resources :users, only: [:index, :show, :create]
+  resources :users, only: [:index, :show, :create] do
+    member do
+      get :followings
+      get :followers
+    end
+  end
   
   resources :microposts, only: [:create, :destroy]
-  get 'microposts/disapper', to: 'microposts#destroy'
+  get 'microposts_disapper', to: 'microposts#destroy'
+  
+  resources :relationships, only: [:create, :destroy]
 end
